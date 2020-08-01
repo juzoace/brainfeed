@@ -7,10 +7,21 @@ const dataRoutes = (app, fs) => {
     app.get("/data", (req, res) => {
         fs.readFile(datapath, "utf8", (err, data) => {
             if (err) {
+                // throw err;
+                res.status(401).json({ success: false, msg: `Couldn't fetch data` });
+                
                 throw err;
-                console.log("Nothing");
             }
-            res.send(JSON.parse(data));
+            const datafield = JSON.parse(data);
+            console.log('connected to backend')
+            console.log()
+            //  console.group(datafield);
+            //  console.log(res.json({ success: true, datafield}))
+            // res.json({ success: true, datafield});
+            return res.json({success: true, datafield});
+            //  { success: true, datafield};
+            
+            
         });
     });
 };
